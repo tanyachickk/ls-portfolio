@@ -1,0 +1,9 @@
+include ./skill
+
+mixin skills-row(data)
+  .skills-row
+    .skills-row__title #{data.skillsGroup}
+    ul.skills-row__list
+      each skillPercent, skillName in data.skills
+        li.skills-row__item
+          +skill(skillName, skillPercent)

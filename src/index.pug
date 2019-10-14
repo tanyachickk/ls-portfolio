@@ -10,6 +10,68 @@ html(lang="en")
   body
     .wrapper
       .maincontent
-        +image('content/user.jpg', 'user-pic')
-        +icon('link', 'link-class')
-        .icon-bg
+        //- section.main-section main
+        //- section.about-section about
+
+        section.skills-section
+          .skills-section__title Чем я могу быть полезна вам
+          .skills-section__description Этот сайт я сделала в рамках обучения в Школе онлайн образования LoftSchool. Чуть позже я освежу в нём свой контент. А пока посмотрите, как тут всё классно и красиво!
+          .skills-section__image
+            +image('content/hands.png')
+          .skills-section__charts
+            .skills
+            - var skills = [ { title: 'Frontend', skills: [ { name: 'HTML5', percent: 75 }, { name: 'CSS', percent: 23 }, { name: 'JavaScript', percent: 45 }, { name: 'VueJS', percent: 67 }] }, { title: 'Workflow', skills: [ { name: 'HTML5', percent: 75 }, { name: 'CSS', percent: 23 }, { name: 'JavaScript', percent: 45 }, { name: 'VueJS', percent: 67 }] } ]
+            each group in skills
+              .skills__row
+                .skills-group
+                  .skills-group__title #{group.title}
+                  .skills-group__items
+                    each skill in group.skills
+                      .skills-group__item
+                        .skill
+                          svg.skill__chart(viewBox="0 0 100 100")
+                            circle.skill__circle(cx="50" cy="50" r="40" stroke="gray" fill="none" stroke-width="5")
+                            circle.skill__circle(cx="50" cy="50" r="40" stroke="url(#gradient)" fill="none" stroke-width="10" stroke-dasharray="251" stroke-dashoffset="80")
+                            linearGradient#gradient
+                              stop(offset="0%" stop-color="#ea7400")
+                              stop(offset="100%" stop-color="#f29400")
+                          .skill__name #{skill.name}
+
+        section.works-section
+          .works-section__title Мои работы
+          .works-section__body
+            .works-slider
+              .works-slider__display
+                .slider-display
+                  .slider-display__current-slide
+                    +image('content/1.jpg')
+                  .slider-display__thumbs
+                    .slider-thumbs
+                      .slider-thumbs__item
+                        +image('content/1.jpg', 'slider-thumbs__image')
+                      .slider-thumbs__item
+                        +image('content/2.jpg', 'slider-thumbs__image')
+                      .slider-thumbs__item
+                        +image('content/3.jpg', 'slider-thumbs__image')
+                      .slider-thumbs__item
+                        +image('content/4.jpg', 'slider-thumbs__image')
+                  .slider-display__buttons
+                    slider-buttons
+                      .button.slider-buttons__button
+                        +icon('arrow-down', 'slider-buttons__icon slider-buttons__icon_prev')
+                      button.slider-buttons__button
+                        +icon('arrow-down', 'slider-buttons__icon slider-buttons__icon_next')
+              .works-slider__info
+                .slider-info
+                  .slider-info__tags
+                    ul.slider-tags
+                      li.slider-tags__item Tag
+                  .slider-info__title Title
+                  .slider-info__description desc
+                  a.slider-info__link(:href="link" target="_blank")
+                    +icon('link', 'slider-info__link-icon')
+                    .slider-info__link-text Посмотреть сайт
+
+        //- section.feedback-section feedback
+        //- section.footer-section footer
+

@@ -6,6 +6,10 @@
   height: 50px;
   border: none;
   cursor: pointer;
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
   &_transparent {
     background: none;
   }
@@ -18,7 +22,7 @@
   &_circle {
     border-radius: 50%;
     border: 1px solid $text-color;
-    &:hover {
+    &:not(:disabled):hover {
       border: 1px solid $accent-color;
       .arrow-button__icon {
         fill: $accent-color;

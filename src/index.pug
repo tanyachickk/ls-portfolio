@@ -12,29 +12,33 @@ html(lang="en")
       .maincontent
         .container
 
-          .reviews
+          .reviews#reviews
             .reviews__header
               .reviews__title Что обо мне говорят
               .reviews__controls
                 .reviews__prev-button
-                  .arrow-button.arrow-button_circle.arrow-button_transparent
+                  button.arrow-button.arrow-button_circle.arrow-button_transparent(
+                    :disabled="currentReviewIndex === 0"
+                    @click="previous"
+                  )
                     +icon('arrow-down', 'arrow-button__icon arrow-button__icon_prev')
                 .reviews__next-button
-                  .arrow-button.arrow-button_circle.arrow-button_transparent
+                  button.arrow-button.arrow-button_circle.arrow-button_transparent(
+                    :disabled="currentReviewIndex === reviews.length - 1"
+                    @click="next"
+                  )
                     +icon('arrow-down', 'arrow-button__icon arrow-button__icon_next')
             .reviews__body
-              .reviews__list
-                - var data = require('./data/reviews.json')
-                each review in data
-                  .reviews__item
-                    .review
-                      .review__quote
-                        +icon('quote', 'review__quote-icon')
-                      .review__content
-                        .review__text #{review.text}
-                        .review__author.review-author
-                          .review-author__avatar
-                            img.review-author__avatar-image(src=require('./images/' + review.photo))
-                          .review-author__info
-                            .review-author__name #{review.author}
-                            .review-author__position #{review.position}
+              flickity(ref="flickity" :options="flickityOptions")
+                .reviews__item.carousel-cell(v-for="(review, i) in reviews" :key="i")
+                  .review
+                    .review__quote
+                      +icon('quote', 'review__quote-icon')
+                    .review__content
+                      .review__text {{ review.text }}
+                      .review__author.review-author
+                        .review-author__avatar
+                          img.review-author__avatar-image(:src="review.photo")
+                        .review-author__info
+                          .review-author__name {{ review.author }}
+                          .review-author__position {{ review.position }}

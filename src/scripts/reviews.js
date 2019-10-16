@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import flickity from 'vue-flickity';
+import constants from '../styles/variables';
 import reviews from '../data/reviews';
 
 new Vue({
@@ -9,11 +10,17 @@ new Vue({
   },
   data: {
     reviews: [],
-    currentReviewIndex: 0,
+    currentSlideIndex: 0,
     flickityOptions: {
       prevNextButtons: false,
       pageDots: false,
+      groupCells: window.innerWidth > 768 ? 2 : 1,
       cellAlign: 'left',
+    },
+  },
+  computed: {
+    slidesLength() {
+      return Math.ceil(this.reviews.length / this.flickityOptions.groupCells);
     },
   },
   methods: {
@@ -22,6 +29,17 @@ new Vue({
     },
     previous() {
       this.$refs.flickity.previous();
+    },
+    onResize() {
+      this.flickityOptions.groupCells = window.innerWidth > 768 ? 2 : 1;
+
+      const slides = this.$refs.flickity.getCellElements();
+      slides.forEach((slide) => (slide.style.height = ''));
+
+      const heights = slides.map((slide) => slide.offsetHeight);
+      const max = Math.max(...heights);
+
+      slides.forEach((slide) => (slide.style.height = max + 'px'));
     },
   },
   created() {
@@ -32,7 +50,12 @@ new Vue({
   },
   mounted() {
     this.$refs.flickity.on('change', (index) => {
-      this.currentReviewIndex = index;
+      this.currentSlideIndex = this.$refs.flickity.selectedIndex();
     });
+    this.onResize();
+    window.addEventListener('resize', this.onResize);
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.onResize);
   },
 });

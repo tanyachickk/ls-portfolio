@@ -18,13 +18,13 @@ html(lang="en")
               .reviews__controls
                 .reviews__prev-button
                   button.arrow-button.arrow-button_circle.arrow-button_transparent(
-                    :disabled="currentReviewIndex === 0"
+                    :disabled="currentSlideIndex === 0"
                     @click="previous"
                   )
                     +icon('arrow-down', 'arrow-button__icon arrow-button__icon_prev')
                 .reviews__next-button
                   button.arrow-button.arrow-button_circle.arrow-button_transparent(
-                    :disabled="currentReviewIndex === reviews.length - 1"
+                    :disabled="currentSlideIndex === slidesLength - 1"
                     @click="next"
                   )
                     +icon('arrow-down', 'arrow-button__icon arrow-button__icon_next')

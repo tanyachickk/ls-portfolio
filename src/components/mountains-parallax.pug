@@ -1,0 +1,8 @@
+.mountains-parallax
+  - var layers = [['sky', 0], ['mountains', 5], ['baloon', 4], ['clouds', 3], ['men', 0], ['hill', 10], ['bottom-clouds', 0]];
+    each layer, index in layers
+      - var i = index + 1
+      .mountains-parallax__layer(data-speed=layer[1])
+        picture
+          source(srcset=require(`images/parallax/${i}_2560.${i === 1 ? 'jpg' : 'png'}`) media="(min-width: 1920px)").mountains-parallax__image
+          img(srcset=require(`images/parallax/${i}.${i === 1 ? 'jpg' : 'png'}`)).mountains-parallax__image

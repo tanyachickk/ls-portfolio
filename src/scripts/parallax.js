@@ -1,13 +1,12 @@
-const parallax = document.querySelector(".parallax");
+const parallax = document.querySelector(".mountains-parallax");
 const layers = parallax.children;
-
-const layersToExclude = [0, 4, 6]; // чувак на горе, самые нижние облака
 
 function moveLayersDependsOnScroll(wscroll) {
   Array.from(layers).forEach((layer, layerIndex) => {
-    const strafe = `${wscroll / (-layerIndex * 40)}%`;
-    if (layersToExclude.includes(layerIndex) === false) {
-      layer.style.transform = `translateY(${strafe})`;
+    const speed = layer.dataset.speed;
+    if (speed) {
+      const strafe = wscroll / speed;
+      layer.style.transform = `translateY(-${strafe}px)`;
     }
   });
 }

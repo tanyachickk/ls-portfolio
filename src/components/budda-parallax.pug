@@ -1,0 +1,8 @@
+.budda-parallax
+  - var layers = [['sky', 0], ['mountains', 5], ['budda', 7], ['cloud-1', 0], ['cloud-2', 0], ['cloud-3', 0]];
+    each layer, index in layers
+      - var i = index + 1
+      .budda-parallax__layer(data-speed=layer[1])
+        picture
+          source(srcset=require(`images/parallax/budda_${i}_2560.${i === 1 ? 'jpg' : 'png'}`) media="(min-width: 1920px)").budda-parallax__image
+          img(srcset=require(`images/parallax/budda_${i}.${i === 1 ? 'jpg' : 'png'}`)).budda-parallax__image

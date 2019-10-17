@@ -1,21 +1,35 @@
-const parallax = document.querySelector(".mountains-parallax");
-const layers = parallax.children;
+import constants from '../styles/variables.json';
 
-function moveLayersDependsOnScroll(wscroll) {
-  Array.from(layers).forEach((layer, layerIndex) => {
-    const speed = layer.dataset.speed;
-    if (speed) {
-      const strafe = wscroll / speed;
-      layer.style.transform = `translateY(-${strafe}px)`;
-    }
+const mountainsParallax = document.querySelector('.mountains-parallax');
+const mountainsLayers = mountainsParallax.children;
+
+const buddaParallax = document.querySelector('.budda-parallax');
+const buddaLayers = buddaParallax.children;
+
+function moveLayersDependsOnScroll(layers, wScroll) {
+  Array.from(layers).forEach((layer) => {
+    const divider = layer.dataset.speed;
+    const offset = -wScroll / divider;
+    layer.style.transform = `translate3d(0, ${offset}px, 0)`;
   });
 }
 
-const windowWidth = document.body.clientWidth;
+window.addEventListener('scroll', () => {
+  if (window.innerWidth < parseInt(constants['bp-tablets'])) {
+    return;
+  }
+  const wScroll = window.pageYOffset;
 
-if (windowWidth > 768) {
-  window.addEventListener("scroll", e => {
-    const wScroll = window.pageYOffset;
-    moveLayersDependsOnScroll(wScroll);
-  });
-}
+  const isMountainsParallax = window.innerHeight > wScroll;
+  if (isMountainsParallax) {
+    moveLayersDependsOnScroll(mountainsLayers, wScroll);
+    return;
+  }
+
+  const { top } = buddaParallax.getBoundingClientRect();
+  const buddaParallaxOffset = window.innerHeight - top;
+  if (buddaParallaxOffset > 0) {
+    moveLayersDependsOnScroll(buddaLayers, buddaParallaxOffset);
+    return;
+  }
+});

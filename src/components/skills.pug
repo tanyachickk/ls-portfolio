@@ -1,7 +1,0 @@
-include ./skills-row
-
-ul.skills
-  - var skillsData = [{ "skillsGroup": "Frontend", "skills": { "HTML5": 60, "CSS3": 65, "JavaScript": 52, "Vue.js": 55 } }, { "skillsGroup": "Workflow", "skills": { "Git": 30, "Terminal": 20, "Gulp": 30, "Webpack": 40 } }];
-  each row in skillsData
-    li.skills__item
-      +skills-row(row)

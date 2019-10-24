@@ -10,6 +10,8 @@ html(lang="en")
   body
     .wrapper
       .maincontent
-        +image('content/user.jpg', 'user-pic')
-        +icon('link', 'link-class')
-        .icon-bg
+
+        section.feedback-section
+          #form-container
+
+    include ./components/feedback-form

@@ -1,3 +1,19 @@
 <template lang="pug">
-  h1 Works
+  .works-page
+    tags-input(
+      v-model="technologies"
+    )
 </template>
+
+<script>
+export default {
+  components: {
+    TagsInput: () => import("../TagsInput.vue")
+  },
+  data() {
+    return {
+      technologies: "HTML, CSS, JS"
+    };
+  }
+};
+</script>

@@ -6,7 +6,7 @@
       review-form(
         :current-review="currentReview"
         @reset="cancelReviewChanges"
-        @create=""
+        @create="createReview"
         @update=""
       )
     .reviews-page__grid
@@ -26,13 +26,6 @@
 
 <script>
 import reviews from "../../../data/reviews.json";
-
-const emptyReviewData = {
-  author: "",
-  occ: "",
-  text: "",
-  photo: null
-};
 
 export default {
   components: {
@@ -56,16 +49,19 @@ export default {
       this.isShowForm = false;
     },
     addReview() {
-      this.currentReview = { ...emptyReviewData };
+      this.currentReview = null;
       this.showForm();
     },
     cancelReviewChanges() {
-      this.currentReview = { ...emptyReviewData };
+      this.currentReview = null;
       this.hideForm();
     },
     editReview(review) {
-      this.currentReview = { ...review };
+      this.currentReview = review;
       this.showForm();
+    },
+    createReview(review) {
+      console.log(review);
     }
   },
   created() {

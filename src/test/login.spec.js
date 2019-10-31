@@ -10,19 +10,11 @@ beforeAll(() => {
 });
 
 test('На странице есть кнопка "Авторизоваться"', () => {
-  return client
-    .isExisting('.basic-button')
-    .then(browsers => {
-      for (const browserName in browsers) {
-        expect(browsers[browserName]).toBe(true);
-      }
-    })
-    .screenshot()
-    .then(screenshots => {
-      for (const browserName in screenshots) {
-        fs.writeFileSync(`./screenshots/login_form_${browserName}.png`, screenshots[browserName].value, 'base64');
-      }
-    });
+  return client.isExisting('.basic-button').then(browsers => {
+    for (const browserName in browsers) {
+      expect(browsers[browserName]).toBe(true);
+    }
+  });
 });
 
 afterAll(() => {

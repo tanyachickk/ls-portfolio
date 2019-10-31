@@ -25,45 +25,45 @@
 </template>
 
 <script>
-import axios from 'axios';
-import BasicInput from './BasicInput.vue';
-import BasicButton from './BasicButton.vue';
-import Icon from './Icon.vue';
+import axios from "../requests";
 
 export default {
   components: {
-    BasicInput,
-    BasicButton,
-    Icon,
+    BasicInput: () => import("./BasicInput.vue"),
+    BasicButton: () => import("./BasicButton.vue"),
+    Icon: () => import("./Icon.vue")
   },
   data() {
     return {
-      name: '',
-      password: '',
-      isLoading: false,
+      name: "",
+      password: "",
+      isLoading: false
     };
   },
   methods: {
     async signIn() {
       this.isLoading = true;
       try {
-        await axios.post('https://webdev-api.loftschool.com/login', { name: this.name, password: this.password });
-        alert('Ok!');
+        await axios.post("/login", {
+          name: this.name,
+          password: this.password
+        });
+        alert("Ok!");
       } catch (e) {
         alert(e.response.data.error);
       }
-      this.password = '';
+      this.password = "";
       this.isLoading = false;
     },
     exitFromAdmin() {
-      location.href = 'https://tanyachickk.github.io/loftschool-course';
-    },
-  },
+      location.href = "https://tanyachickk.github.io/loftschool-course";
+    }
+  }
 };
 </script>
 
 <style lang="postcss" scoped>
-@import '../../styles/mixins.pcss';
+@import "../../styles/mixins.pcss";
 
 .login-form {
   position: relative;

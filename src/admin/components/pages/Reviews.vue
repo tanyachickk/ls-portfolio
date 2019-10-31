@@ -14,23 +14,25 @@
         :is-disabled="isShowForm && !currentReview"
         @click="addReview"
       ) Добавить #[br] отзыв
-      //- review-item.reviews-page__item(
-      //-   v-for="item in reviews"
-      //-   :key="item.id"
-      //-   :review="item"
-      //-   :is-active="item === currentReview"
-      //-   @edit=""
-      //-   @delete=""
-      //- )
+      review-item.reviews-page__item(
+        v-for="item in reviews"
+        :key="item.id"
+        :review="item"
+        :is-active="item === currentReview"
+        @edit="editReview(item)"
+        @delete=""
+      )
 </template>
 
 <script>
+import reviews from "../../../data/reviews.json";
+
 export default {
   components: {
     PageTitle: () => import("../PageTitle.vue"),
     CardGradientButton: () => import("../CardGradientButton.vue"),
-    ReviewForm: () => import("../ReviewForm.vue")
-    // ReviewItem: () => import("../ReviewItem.vue")
+    ReviewForm: () => import("../ReviewForm.vue"),
+    ReviewItem: () => import("../ReviewItem.vue")
   },
   data() {
     return {
@@ -60,7 +62,9 @@ export default {
       this.showForm();
     }
   },
-  created() {}
+  created() {
+    this.reviews = reviews;
+  }
 };
 </script>
 

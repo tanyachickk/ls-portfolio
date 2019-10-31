@@ -5,7 +5,7 @@
       .review-item__user-info
         .review-item__user-name {{ review.author }}
         .review-item__user-position {{ review.occ }}
-    .review-item__content(slot="content")
+    template(slot="content")
       .review-item__text {{ review.text }}
       .review-item__controls
         button.review-item__button.review-item__button_edit(@click="$emit('edit')")
@@ -17,24 +17,22 @@
 </template>
 
 <script>
-import { getAbsoluteImgPath } from '@/admin/helpers/pictures';
-import Card from 'components/Card.vue';
-import Icon from 'components/Icon.vue';
+import { getAbsoluteImgPath } from "../helpers/pictures";
 
 export default {
   components: {
-    Card,
-    Icon,
+    Card: () => import("./Card.vue"),
+    Icon: () => import("./Icon.vue")
   },
   props: {
     review: {
       type: Object,
-      default: {},
+      default: {}
     },
     isActive: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   data() {
     return {};
@@ -42,19 +40,19 @@ export default {
   computed: {
     imageSrc() {
       return getAbsoluteImgPath(this.review.photo);
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style lang="postcss" scoped>
-@import '../../styles/mixins.pcss';
+@import "../../styles/mixins.pcss";
 
 .review-item {
   position: relative;
   &_active::after {
     position: absolute;
-    content: '';
+    content: "";
     top: 0;
     left: 0;
     right: 0;

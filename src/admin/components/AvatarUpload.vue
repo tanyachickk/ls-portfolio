@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { renderer } from "../helpers/pictures";
+import { renderer, getAbsoluteImgPath } from "../helpers/pictures";
 
 export default {
   components: {

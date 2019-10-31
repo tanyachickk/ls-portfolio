@@ -1,7 +1,9 @@
+import requests from '../requests';
+
 export const renderer = file => {
   const reader = new FileReader();
 
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     try {
       reader.readAsDataURL(file);
       reader.onloadend = () => {
@@ -11,4 +13,9 @@ export const renderer = file => {
       throw new Error('Ошибка при чтении файла');
     }
   });
+};
+
+export const getAbsoluteImgPath = imgPath => {
+  const baseUrl = requests.defaults.baseURL;
+  return `${baseUrl}/${imgPath}`;
 };

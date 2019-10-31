@@ -42,13 +42,6 @@
 <script>
 import SimpleVueValidation, { Validator } from "simple-vue-validator";
 
-const emptyReviewData = {
-  author: "",
-  occ: "",
-  text: "",
-  photo: null
-};
-
 export default {
   components: {
     Card: () => import("./Card.vue"),
@@ -72,7 +65,7 @@ export default {
   mixins: [SimpleVueValidation.mixin],
   data() {
     return {
-      reviewData: emptyReviewData
+      reviewData: {}
     };
   },
   validators: {
@@ -96,9 +89,7 @@ export default {
   },
   methods: {
     updateReviewData() {
-      this.reviewData = this.currentReview
-        ? { ...this.currentReview }
-        : { ...emptyReviewData };
+      this.reviewData = this.currentReview;
     },
     onSubmit() {
       this.$validate().then(success => {

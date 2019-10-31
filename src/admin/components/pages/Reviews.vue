@@ -27,6 +27,13 @@
 <script>
 import reviews from "../../../data/reviews.json";
 
+const emptyReviewData = {
+  author: "",
+  occ: "",
+  text: "",
+  photo: null
+};
+
 export default {
   components: {
     PageTitle: () => import("../PageTitle.vue"),
@@ -47,18 +54,17 @@ export default {
     },
     hideForm() {
       this.isShowForm = false;
-      this.currentReview = null;
     },
     addReview() {
-      this.currentReview = null;
+      this.currentReview = { ...emptyReviewData };
       this.showForm();
     },
     cancelReviewChanges() {
-      this.currentReview = null;
+      this.currentReview = { ...emptyReviewData };
       this.hideForm();
     },
     editReview(review) {
-      this.currentReview = review;
+      this.currentReview = { ...review };
       this.showForm();
     }
   },

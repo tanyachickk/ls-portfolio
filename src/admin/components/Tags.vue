@@ -39,7 +39,6 @@ export default {
   &__item {
     margin: 5px 8px;
     margin-left: 0;
-    background-color: white;
     color: rgba($text-color, 0.7);
     font-size: 13px;
     font-weight: 600;

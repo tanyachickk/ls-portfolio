@@ -1,3 +1,14 @@
+<template lang="pug">
+  .card
+    .card__media(v-if="$slots.media")
+      slot(name="media")
+    .card__header(v-if="$slots.title")
+      slot(name="title")
+    .card__body
+      slot(name="content")
+</template>
+
+<style lang="postcss" scoped>
 .card {
   display: flex;
   flex-direction: column;
@@ -21,3 +32,4 @@
     padding: 30px;
   }
 }
+</style>

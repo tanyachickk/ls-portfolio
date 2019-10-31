@@ -1,16 +1,14 @@
 <template lang="pug">
-  .app
-    div.root-container
-      template(v-if="$route.meta.public")
+  .root-container
+    template(v-if="$route.meta.public")
+      router-view
+    .inner-page(v-else)
+      .inner-page__panel
+        app-header
+      .inner-page__navbar
+        app-tabs
+      .inner-page__content
         router-view
-
-      .inner-page(v-else)
-        .inner-page__panel
-          app-header
-        .inner-page__navbar
-          app-tabs
-        .inner-page__content
-          router-view(:pageTitle="$route.meta.title")
 </template>
 
 <script>
@@ -25,6 +23,11 @@ export default {
 
 <style lang="postcss">
 @import "./styles/main.pcss";
+
+.admin-wrapper {
+  background-image: url("../images/content/train-bridge.jpg");
+  background-size: 100vw 100vh;
+}
 
 .inner-page {
   display: flex;

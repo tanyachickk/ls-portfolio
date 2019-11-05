@@ -1,7 +1,17 @@
 <template lang="pug">
   .avatar-upload
-    label.avatar-upload__control(for="file-input")
-      img.avatar-upload__image(v-if="renderedPhoto" :src="renderedPhoto")
+    label.avatar-upload__control(
+      for="file-input"
+      :class="{ 'avatar-upload__control_drag': isDragImage }"
+      @dragenter.prevent="dragenterFocusIn"
+      @dragover.prevent="dragenterFocusIn"
+      @dragleave.prevent="dragenterFocusOut"
+      @drop.prevent="handleDrop"
+    )
+      img.avatar-upload__image(
+        v-if="renderedPhoto && !isDragImage"
+        :src="renderedPhoto"
+      )
     input.avatar-upload__file#file-input(
       ref="file-input"
       type="file"
@@ -11,7 +21,7 @@
     basic-button.avatar-upload__button(
       size="small"
       display="flat"
-      @click="uploadFile"
+      @click="uploadFile($event.target.files[0])"
     ) {{ value ? 'Изменить фото' : 'Добавить фото' }}
     transition(name="slide-up")
       .avatar-upload__error(v-if="errorMessage")
@@ -47,6 +57,7 @@ export default {
   },
   data() {
     return {
+      isDragImage: false,
       renderedPhoto: null
     };
   },
@@ -74,8 +85,18 @@ export default {
         this.$emit("input", null);
       }
     },
-    async handlePhotoUpload(e) {
-      const file = e.target.files[0];
+    dragenterFocusIn(e) {
+      this.isDragImage = true;
+    },
+    dragenterFocusOut() {
+      this.isDragImage = false;
+    },
+    handleDrop({ dataTransfer }) {
+      const file = dataTransfer.files[0];
+      this.handlePhotoUpload(file);
+      this.isDragImage = false;
+    },
+    async handlePhotoUpload(file) {
       if (file.size > this.maxSize) {
         alert("Слишком большой размер файла (максимум 1.5MB)");
         return;
@@ -110,6 +131,10 @@ export default {
     overflow: hidden;
     &:hover {
       opacity: 0.7;
+    }
+
+    &_drag {
+      background-color: gray;
     }
   }
   &__image {
